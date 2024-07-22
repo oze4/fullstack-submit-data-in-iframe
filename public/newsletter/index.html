@@ -1,50 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Newsletter</title>
-	</head>
 
-	<body>
-		<h1>Newsletter</h1>
-		<form id="subscribe-form">
-			<label for="input-email">Your Email</label>
-			<input id="input-email" type="text" value="foo@bar.com" />
-			<p id="result"></p>
-			<button type="submit">Subscribe</button>
-		</form>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Newsletter</title>
+</head>
 
-		<script>
-			const emailInputEl = document.getElementById("input-email");
-			const subscribeFormEl = document.getElementById("subscribe-form");
-			const resultEl = document.getElementById("result");
+<body>
+	<h1>Newsletter</h1>
+	<form id="subscribe-form">
+		<label for="input-email">Your Email</label>
+		<input id="input-email" type="text" value="foo@bar.com" />
+		<p id="result"></p>
+		<button type="submit">Subscribe</button>
+	</form>
 
-			subscribeFormEl.addEventListener("submit", (event) => {
-				event.preventDefault();
-				resultEl.innerText = "";
-				if (!emailInputEl.value || emailInputEl.value === "") {
-					resultEl.innerText = "Please enter email";
-					return;
-				}
+	<script>
+		const emailInputEl = document.getElementById("input-email");
+		const subscribeFormEl = document.getElementById("subscribe-form");
+		const resultEl = document.getElementById("result");
 
-				const fetchOptions = {
-					method: "POST",
-					body: JSON.stringify({ email: emailInputEl.value }),
-					headers: {
-						"Content-Type": "application/json",
-					},
-				};
+		subscribeFormEl.addEventListener("submit", (event) => {
+			event.preventDefault();
+			resultEl.innerText = "";
+			if (!emailInputEl.value || emailInputEl.value === "") {
+				resultEl.innerText = "Please enter email";
+				return;
+			}
 
-				fetch("/subscribe", fetchOptions)
-					.then((response) => {
-						return response.json();
-					})
-					.then((data) => {
-						resultEl.innerText = data.message;
-					})
-					.catch((err) => (resultEl.innerText = err.message));
-			});
-		</script>
-	</body>
+			const fetchOptions = {
+				method: "POST",
+				body: JSON.stringify({ email: emailInputEl.value }),
+				headers: {
+					"Content-Type": "application/json",
+				},
+			};
+
+			fetch("/subscribe", fetchOptions)
+				.then((response) => {
+					return response.json();
+				})
+				.then((data) => {
+					resultEl.innerText = data.message;
+				})
+				.catch((err) => (resultEl.innerText = err.message));
+		});
+	</script>
+</body>
+
 </html>
