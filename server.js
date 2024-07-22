@@ -22,8 +22,8 @@ app.post("/subscribe", (req, res) => {
         }
 
         const subscribers = JSON.parse(data);
-		const alreadySubscribed = subscribers.some((sub) => sub.email === email);
-		
+        const alreadySubscribed = subscribers.some((sub) => sub.email === email);
+
         if (alreadySubscribed) {
             return res.status(400).send({ success: false, message: "Email already exists" });
         }
