@@ -1,2 +1,5 @@
 # fullstack-submit-data-in-iframe
- Helping someone online
+
+- `npm install`
+- `npm start`
+- Browse to `localhost:5500`
