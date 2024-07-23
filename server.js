@@ -15,7 +15,7 @@ app.post("/subscribe", (req, res) => {
 	}
 
 	addEmailToSubscribers(path.resolve(__dirname, "subscribers.json"), email)
-		.then(({status, message}) => {
+		.then(({ status, message }) => {
 			res.status(status).send({ success: true, message });
 		})
 		.catch(({ status, message }) => {
@@ -35,22 +35,22 @@ function addEmailToSubscribers(pathToJsonFile, emailToadd) {
 	return new Promise((resolve, reject) => {
 		fs.readFile(pathToJsonFile, (err, data) => {
 			if (err) {
-				return reject({ status: 500, message: "Internal server error"});
+				return reject({ status: 500, message: "Internal server error" });
 			}
-	
+
 			const subscribers = JSON.parse(data);
-	
+
 			if (subscribers.some((sub) => sub.email === emailToadd)) {
-				return reject({ status: 400, message: "Email already exists"});
+				return reject({ status: 400, message: "Email already exists" });
 			}
-	
+
 			subscribers.push({ email: emailToadd });
-	
+
 			fs.writeFile(pathToJsonFile, JSON.stringify(subscribers, null, 2), (err) => {
 				if (err) {
-					return reject({ status: 500, message: "Internal server error"});
+					return reject({ status: 500, message: "Internal server error" });
 				}
-				resolve({ status: 200, message: "Success!"});
+				resolve({ status: 200, message: "Success!" });
 			});
 		});
 	});
